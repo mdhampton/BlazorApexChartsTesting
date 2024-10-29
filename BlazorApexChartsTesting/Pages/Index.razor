@@ -1,0 +1,204 @@
+﻿@page "/"
+@using ApexCharts
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.Extensions.Logging
+@inject ILogger<Index> Logger
+
+<PageTitle>Index</PageTitle>
+
+@code {
+
+    private class DataPoint
+    {
+        public decimal YValue { get; set; }
+        public required string XValue { get; set; }
+    }
+
+    private class DataSeries
+    {
+        public required string Name { get; set; }
+        public List<DataPoint> Points { get; set; } = [];
+    }
+
+    private List<string> XAxis = new List<string> { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+    private List<List<decimal>> YAxis = new () 
+    { 
+        new() { 10, 20, 30, 40, 40, 20, 15, 40, 55, 44, 33, 11 },
+        new() { 20, 20, 20, 30, 30, 15, 15, 20, 30, 20, 44, 22 },
+        new() { 40, 30, 20, 10, 10, 20, 15, 35, 35, 35, 25, 55 },
+        new() { 50, 40, 30, 30, 20, 20, 15, 30, 44, 55, 44, 33 }
+    };
+
+    private ApexChart<DataPoint>? chart;
+    private ApexChartOptions<DataPoint>? options;
+
+    private List<DataSeries> AllSeries = new List<DataSeries>
+    {
+        new DataSeries { Name = "Series 1" },
+        new DataSeries { Name = "Series 2" },
+        new DataSeries { Name = "Series 3" },
+        new DataSeries { Name = "Series 4" }
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        options = new ApexChartOptions<DataPoint>
+        {
+            Chart = new Chart
+            {
+                Type = ChartType.Line
+            },
+            Stroke = new()
+            {
+                Curve = Curve.MonotoneCubic,
+                Show = true
+            }
+        };
+
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 12; j++)
+            {
+                AllSeries[i].Points.Add(new DataPoint { XValue = XAxis[j], YValue = YAxis[i][j] });
+            }
+        }
+        Logger.LogDebug("Data loaded, charts configured.");
+        await Task.CompletedTask;
+    }
+
+    private void LogSelectedPoint(SelectedData<DataPoint>? data, string from)
+    {
+        try
+        {
+            if (data is not null)
+            {
+                if (data.DataPoint is null)
+                    Logger.LogInformation("{from} Datapoint is null: {obj}", from, data.Chart?.ChartId);
+                else if (data.Chart is null)
+                    Logger.LogInformation("{from} Chart is null.", from);
+                if (data.Series is null)
+                    Logger.LogInformation("{from} Series is null {id}", from, data.Chart?.ChartId);
+                Logger.LogInformation("{from} Data clicked: Chart Id: {id} Point X: {x} Y: {y}. Datapoint Index: {i} Series: {series}, Series Index: {si}",
+                    from, data.Chart?.ChartId, data.DataPoint?.X, data.DataPoint?.Items?.ToJson(), data.DataPointIndex, data.Series?.Name, data.SeriesIndex);
+            }
+            else
+            {
+                Logger.LogDebug("{from} No datapoint", from);
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.LogError(e, "Error in log selected point for {data}, event {evt}", data?.Chart?.ChartId, from);
+        }
+    }
+
+    private void LogSelectionData(SelectionData<DataPoint>? data, string from)
+    {
+        try
+        {
+            if (data is not null)
+            {
+                if (data.YAxis is null)
+                    Logger.LogInformation("{from} Y Axis is null: {obj}", from, data.Chart?.ChartId);
+                if (data.XAxis is null)
+                    Logger.LogInformation("{from} x Axis is null: {obj}", from, data.Chart?.ChartId);
+                if (data.Chart is null)
+                    Logger.LogInformation("{from} Chart is null.", from);
+                Logger.LogInformation("{from} Data selected: Chart Id: {id} Y Axis Min, Max: {yMin} Max: {yMax}. X Axis Min, Max: {xMin}, {xMax}",
+                    from, data.Chart?.ChartId, data.YAxis?.Min, data.YAxis?.Max, data.XAxis?.Min, data.XAxis?.Max);
+            }
+            else 
+            {
+                Logger.LogDebug("No datapoint from {from}", from);
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.LogError(e, "Error in log selected point for {data}, event {evt}", data?.Chart?.ChartId, from);
+        }
+    }
+
+    private void LogXAxisClick(XAxisLabelClicked<DataPoint>? data, string from)
+    {
+        try
+        {
+            if (data is not null)
+            {
+                if (data.SeriesPoints is null)
+                    Logger.LogInformation("{from} List of series points is null: {obj} index {index}", from, data.Caption, data.LabelIndex);
+                if (data.Caption is null)
+                    Logger.LogInformation("{from} Caption is null.", from);
+                Logger.LogInformation("{from} X Axis clicked:Caption: {id} Index: {x}. # Datapoints : {i}",
+                        from, data.Caption, data.LabelIndex, data.SeriesPoints?.Count);
+            }
+            else 
+            {
+                Logger.LogDebug("No datapoint from {from}", from);
+            }
+        }
+        catch (Exception e)
+        {
+            Logger.LogError(e, "Error in log selected point for {data}, event {evt}", data?.Caption, from);
+        }
+    }
+
+    private async Task DataSelected(SelectedData<DataPoint>? data, string from)
+    {
+        Logger.LogDebug("DataSelected from {from}. Data is {null}", from, data == null ? "null" : "not null");
+        LogSelectedPoint(data, from);
+        await Task.CompletedTask;
+    }
+
+    private async Task DataSelection(SelectionData<DataPoint>? data, string from)
+    {
+        LogSelectionData(data, from);
+        //Logger.LogDebug("DataSelection from {from}. Data is {null}", from, data == null ? "null" : "not null");
+        await Task.CompletedTask;
+    }
+
+    private async Task XAxisLabelClick(XAxisLabelClicked<DataPoint>? data, string from)
+    {
+        LogXAxisClick(data, from);
+        //Logger.LogDebug("X Axis clicked from {from}. Data is {null}", from, data == null ? "null" : "not null");
+        await Task.CompletedTask;
+    }
+
+}
+
+
+<div class="apex-chart">
+    <ApexChart TItem ="DataPoint"
+               Options="@options"
+               OnDataPointSelection="@((d) => DataSelected(d, "OnDataPointSelection"))"
+               OnClick="@((d) => DataSelected(d, "OnClick"))"
+               OnSelection="@((d) => DataSelection(d, "OnSelection"))"
+               OnMarkerClick="@((d) => DataSelected(d, "OnMarkerClick"))"
+               OnXAxisLabelClick="@((d) => XAxisLabelClick(d, "OnXAxisLabelClick"))"
+               @ref=chart>
+         <ApexPointSeries TItem="DataPoint"
+                         Items="@(AllSeries[0].Points)"
+                         Name="@(AllSeries[0].Name)"
+                         XValue="@(c => c.XValue)"
+                         YValue="@(c => c.YValue)"
+                         SeriesType="SeriesType.Line" />
+        <ApexPointSeries TItem="DataPoint"
+                         Items="@(AllSeries[1].Points)"
+                         Name="@(AllSeries[1].Name)"
+                         XValue="@(c => c.XValue)"
+                         YValue="@(c => c.YValue)"
+                         SeriesType="SeriesType.Line" />
+        <ApexPointSeries TItem="DataPoint"
+                         Items="@(AllSeries[2].Points)"
+                         Name="@(AllSeries[2].Name)"
+                         XValue="@(c => c.XValue)"
+                         YValue="@(c => c.YValue)"
+                         SeriesType="SeriesType.Line" />
+        <ApexPointSeries TItem="DataPoint"
+                         Items="@(AllSeries[3].Points)"
+                         Name="@(AllSeries[3].Name)"
+                         XValue="@(c => c.XValue)"
+                         YValue="@(c => c.YValue)"
+                         SeriesType="SeriesType.Line" />
+    </ApexChart>
+
+</div>

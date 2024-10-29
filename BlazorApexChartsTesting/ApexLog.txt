@@ -1,0 +1,28 @@
+[2024-10-29 14:33:50.410] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:33:51.467] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:38:15.234] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:38:15.848] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:40:03.044] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:40:03.622] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:50:01.626] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:50:02.396] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:50:14.769] [DBG] BlazorApexChartsTesting.Pages.Index DataSelected from OnDataPointSelection. Data is not null
+[2024-10-29 14:50:14.778] [INF] BlazorApexChartsTesting.Pages.Index OnDataPointSelection Data clicked: Chart Id: 45c817eec3ca4df382fc7a72831fae35 Point X: Feb Y: [{"YValue":40,"XValue":"Feb"}]. Datapoint Index: 1 Series: Series 4, Series Index: 3
+[2024-10-29 14:50:14.799] [DBG] BlazorApexChartsTesting.Pages.Index DataSelected from OnClick. Data is not null
+[2024-10-29 14:50:14.801] [INF] BlazorApexChartsTesting.Pages.Index OnClick Data clicked: Chart Id: 45c817eec3ca4df382fc7a72831fae35 Point X: Feb Y: [{"YValue":40,"XValue":"Feb"}]. Datapoint Index: 1 Series: Series 4, Series Index: 3
+[2024-10-29 14:50:14.879] [DBG] BlazorApexChartsTesting.Pages.Index DataSelected from OnMarkerClick. Data is not null
+[2024-10-29 14:50:14.880] [INF] BlazorApexChartsTesting.Pages.Index OnMarkerClick Data clicked: Chart Id: 45c817eec3ca4df382fc7a72831fae35 Point X: Feb Y: [{"YValue":40,"XValue":"Feb"}]. Datapoint Index: 1 Series: Series 4, Series Index: 3
+[2024-10-29 14:55:55.562] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:55:56.590] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:56:29.118] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:56:29.553] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 14:58:29.620] [DBG] BlazorApexChartsTesting.Pages.Index DataSelected from OnDataPointSelection. Data is not null
+[2024-10-29 14:58:29.628] [INF] BlazorApexChartsTesting.Pages.Index OnDataPointSelection Data clicked: Chart Id: c636011f87344283b4ca74caa7c5545f Point X: Mar Y: [{"YValue":30,"XValue":"Mar"}]. Datapoint Index: 2 Series: Series 4, Series Index: 3
+[2024-10-29 14:58:29.648] [DBG] BlazorApexChartsTesting.Pages.Index DataSelected from OnClick. Data is not null
+[2024-10-29 14:58:29.652] [INF] BlazorApexChartsTesting.Pages.Index OnClick Data clicked: Chart Id: c636011f87344283b4ca74caa7c5545f Point X: Mar Y: [{"YValue":30,"XValue":"Mar"}]. Datapoint Index: 2 Series: Series 4, Series Index: 3
+[2024-10-29 14:58:29.733] [DBG] BlazorApexChartsTesting.Pages.Index DataSelected from OnMarkerClick. Data is not null
+[2024-10-29 14:58:29.737] [INF] BlazorApexChartsTesting.Pages.Index OnMarkerClick Data clicked: Chart Id: c636011f87344283b4ca74caa7c5545f Point X: Mar Y: [{"YValue":30,"XValue":"Mar"}]. Datapoint Index: 2 Series: Series 4, Series Index: 3
+[2024-10-29 15:00:22.546] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 15:00:23.062] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 15:01:27.106] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 15:01:27.542] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
