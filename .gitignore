@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/BlazorApexChartsTesting/CopilotIndices/0.2.1657.32929
+/.vs/BlazorApexChartsTesting/DesignTimeBuild
+/.vs/BlazorApexChartsTesting/FileContentIndex
+/.vs/BlazorApexChartsTesting/v17
+/BlazorApexChartsTesting/obj
+/BlazorApexChartsTesting/bin/Debug/net8.0
