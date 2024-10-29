@@ -490,3 +490,7 @@
 [2024-10-29 15:52:10.593] [INF] BlazorApexChartsTesting.Pages.Index OnClick Data clicked: Chart Id: 9e272dfa7a9740888ffb97adb084716a Point X: Jul Y: [{"YValue":15,"XValue":"Jul"}]. Datapoint Index: 6 Series: Series 4, Series Index: 3
 [2024-10-29 15:52:10.692] [DBG] BlazorApexChartsTesting.Pages.Index DataSelected from OnMarkerClick. Data is not null
 [2024-10-29 15:52:10.693] [INF] BlazorApexChartsTesting.Pages.Index OnMarkerClick Data clicked: Chart Id: 9e272dfa7a9740888ffb97adb084716a Point X: Jul Y: [{"YValue":15,"XValue":"Jul"}]. Datapoint Index: 6 Series: Series 4, Series Index: 3
+[2024-10-29 15:59:56.846] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 15:59:57.449] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 16:03:30.040] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
+[2024-10-29 16:03:30.878] [DBG] BlazorApexChartsTesting.Pages.Index Data loaded, charts configured.
