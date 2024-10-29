@@ -1,4 +1,3 @@
-using BlazorApexChartsTesting.Data;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +7,6 @@ builder.Host.UseSerilog((context, loggerConfig) => loggerConfig.ReadFrom.Configu
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 
 var app = builder.Build();
 
