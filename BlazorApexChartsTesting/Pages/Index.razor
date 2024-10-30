@@ -32,6 +32,7 @@
 
     private ApexChart<DataPoint>? chart;
     private ApexChartOptions<DataPoint>? options;
+    private ApexChartOptions<DataPoint>? optionsMouse;
 
     private List<DataSeries> AllSeries = new List<DataSeries>
     {
@@ -41,7 +42,8 @@
         new DataSeries { Name = "Series 4" }
     };
 
-    private bool IncludeMouseEnter { get; set; } = false;
+    private bool IncludeMouseMove { get; set; } = false;
+    private bool IncludeClickEvents { get; set; } = true;
 
     protected override async Task OnInitializedAsync()
     {
@@ -49,6 +51,7 @@
         {
             Chart = new Chart
             {
+                Id = "chart-muliple-events",
                 Type = ChartType.Line
             },
             Stroke = new()
@@ -57,6 +60,20 @@
                 Show = true
             }
         };
+        
+        optionsMouse = new ApexChartOptions<DataPoint>
+            {
+                Chart = new Chart
+                {
+                    Id = "chart-mouse-only",
+                    Type = ChartType.Line
+                },
+                Stroke = new()
+                {
+                    Curve = Curve.Smooth,
+                    Show = true
+                }
+            };
 
         for (int i = 0; i < 4; i++)
         {
@@ -170,56 +187,92 @@
 
 
 <div class="options">
-    <input type="checkbox" @onclick="() => IncludeMouseEnter = !IncludeMouseEnter">Toggle Mouse Enter</input>
-    <span>Include Mouse Enter: @IncludeMouseEnter</span>
+    <input type="checkbox" checked="@IncludeMouseMove" @onclick="() => IncludeMouseMove = !IncludeMouseMove">Toggle Mouse Enter</input>
+    <span>Include Mouse Move: @IncludeMouseMove</span>
+    <input type="checkbox" checked="@IncludeClickEvents" @onclick="() => IncludeClickEvents = !IncludeClickEvents">Include Click Events</input>
+    <span>Include Clicks: @IncludeClickEvents</span>
 </div>
 <div class="apex-chart">
-    @if (IncludeMouseEnter)
+    @if (IncludeMouseMove && IncludeClickEvents)
     {
         <ApexChart TItem="DataPoint"
-                   Options="@options"
-                   OnDataPointSelection="@((d) => DataSelected(d, "OnDataPointSelection"))"
-                   OnClick="@((d) => DataSelected(d, "OnClick"))"
-                   OnSelection="@((d) => DataSelection(d, "OnSelection"))"
-                   OnMarkerClick="@((d) => DataSelected(d, "OnMarkerClick"))"
-                   OnXAxisLabelClick="@((d) => XAxisLabelClick(d, "OnXAxisLabelClick"))"
-                   OnMouseMove="@((d) => DataSelected(d, "OnMouseMove"))"
-                   @ref=chart>
+        Options="@options"
+        OnDataPointSelection="@((d) => DataSelected(d, "OnDataPointSelection"))"
+        OnClick="@((d) => DataSelected(d, "OnClick"))"
+        OnSelection="@((d) => DataSelection(d, "OnSelection"))"
+        OnMarkerClick="@((d) => DataSelected(d, "OnMarkerClick"))"
+        OnXAxisLabelClick="@((d) => XAxisLabelClick(d, "OnXAxisLabelClick"))"
+        OnMouseMove="@((d) => DataSelected(d, "OnMouseMove"))"
+        @ref=chart>
             <ApexPointSeries TItem="DataPoint"
-                             Items="@(AllSeries[0].Points)"
-                             Name="@(AllSeries[0].Name)"
-                             XValue="@(c => c.XValue)"
-                             YValue="@(c => c.YValue)"
-                             SeriesType="SeriesType.Line" />
+            Items="@(AllSeries[0].Points)"
+            Name="@(AllSeries[0].Name)"
+            XValue="@(c => c.XValue)"
+            YValue="@(c => c.YValue)"
+            SeriesType="SeriesType.Line" />
             <ApexPointSeries TItem="DataPoint"
-                             Items="@(AllSeries[1].Points)"
-                             Name="@(AllSeries[1].Name)"
-                             XValue="@(c => c.XValue)"
-                             YValue="@(c => c.YValue)"
-                             SeriesType="SeriesType.Line" />
+            Items="@(AllSeries[1].Points)"
+            Name="@(AllSeries[1].Name)"
+            XValue="@(c => c.XValue)"
+            YValue="@(c => c.YValue)"
+            SeriesType="SeriesType.Line" />
             <ApexPointSeries TItem="DataPoint"
-                             Items="@(AllSeries[2].Points)"
-                             Name="@(AllSeries[2].Name)"
-                             XValue="@(c => c.XValue)"
-                             YValue="@(c => c.YValue)"
-                             SeriesType="SeriesType.Line" />
+            Items="@(AllSeries[2].Points)"
+            Name="@(AllSeries[2].Name)"
+            XValue="@(c => c.XValue)"
+            YValue="@(c => c.YValue)"
+            SeriesType="SeriesType.Line" />
             <ApexPointSeries TItem="DataPoint"
-                             Items="@(AllSeries[3].Points)"
-                             Name="@(AllSeries[3].Name)"
-                             XValue="@(c => c.XValue)"
-                             YValue="@(c => c.YValue)"
-                             SeriesType="SeriesType.Line" />
+            Items="@(AllSeries[3].Points)"
+            Name="@(AllSeries[3].Name)"
+            XValue="@(c => c.XValue)"
+            YValue="@(c => c.YValue)"
+            SeriesType="SeriesType.Line" />
+        </ApexChart>
+    }
+    else if (!IncludeMouseMove && IncludeClickEvents)
+    {
+        <ApexChart TItem="DataPoint"
+        Options="@options"
+        OnDataPointSelection="@((d) => DataSelected(d, "OnDataPointSelection"))"
+        OnClick="@((d) => DataSelected(d, "OnClick"))"
+        OnSelection="@((d) => DataSelection(d, "OnSelection"))"
+        OnMarkerClick="@((d) => DataSelected(d, "OnMarkerClick"))"
+        OnXAxisLabelClick="@((d) => XAxisLabelClick(d, "OnXAxisLabelClick"))"
+        @ref=chart>
+            <ApexPointSeries TItem="DataPoint"
+            Items="@(AllSeries[0].Points)"
+            Name="@(AllSeries[0].Name)"
+            XValue="@(c => c.XValue)"
+            YValue="@(c => c.YValue)"
+            SeriesType="SeriesType.Line" />
+            <ApexPointSeries TItem="DataPoint"
+            Items="@(AllSeries[1].Points)"
+            Name="@(AllSeries[1].Name)"
+            XValue="@(c => c.XValue)"
+            YValue="@(c => c.YValue)"
+            SeriesType="SeriesType.Line" />
+            <ApexPointSeries TItem="DataPoint"
+            Items="@(AllSeries[2].Points)"
+            Name="@(AllSeries[2].Name)"
+            XValue="@(c => c.XValue)"
+            YValue="@(c => c.YValue)"
+            SeriesType="SeriesType.Line" />
+            <ApexPointSeries TItem="DataPoint"
+            Items="@(AllSeries[3].Points)"
+            Name="@(AllSeries[3].Name)"
+            XValue="@(c => c.XValue)"
+            YValue="@(c => c.YValue)"
+            SeriesType="SeriesType.Line" />
         </ApexChart>
     }
     else
     {
         <ApexChart TItem="DataPoint"
-                   Options="@options"
-                   OnDataPointSelection="@((d) => DataSelected(d, "OnDataPointSelection"))"
-                   OnClick="@((d) => DataSelected(d, "OnClick"))"
-                   OnSelection="@((d) => DataSelection(d, "OnSelection"))"
-                   OnMarkerClick="@((d) => DataSelected(d, "OnMarkerClick"))"
+                   Options="@optionsMouse"
+                   OnMouseMove="@((d) => DataSelected(d, "OnMouseMove"))"
                    OnXAxisLabelClick="@((d) => XAxisLabelClick(d, "OnXAxisLabelClick"))"
+                   OnSelection="@((d) => DataSelection(d, "OnSelection"))"
                    @ref=chart>
             <ApexPointSeries TItem="DataPoint"
                              Items="@(AllSeries[0].Points)"
